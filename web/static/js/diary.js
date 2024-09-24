@@ -8,7 +8,10 @@ document.addEventListener('DOMContentLoaded', function () {
 			{
 				selector: 'node',
 				style: {
-					'background-color': '#666',
+					'background-color': '#ff0000',
+					'border-color': '#ff0000',
+					'border-width': 3,
+
 					label: 'data(title)',
 				},
 			},
@@ -23,10 +26,9 @@ document.addEventListener('DOMContentLoaded', function () {
 				},
 			},
 		],
-		layout: {
-			name: 'preset',
-		},
+
 		zoom: 1,
+
 		pan: { x: 0, y: 0 },
 		minZoom: 0.1,
 		maxZoom: 10,
@@ -58,6 +60,8 @@ function loadNodes() {
 		.then(response => response.json())
 		.then(nodes => {
 			nodes.forEach(node => {
+				console.log('Node X:', node.x) // Вывод значения X в консоль
+				console.log('Node Y:', node.y) // Вывод значения Y в консоль
 				cy.add({
 					group: 'nodes',
 					data: {
@@ -65,7 +69,7 @@ function loadNodes() {
 						title: node.Title,
 						content: node.Content,
 					},
-					position: { x: node.X, y: node.Y },
+					position: { x: node.x, y: node.y },
 				})
 				if (node.ParentID) {
 					cy.add({
@@ -77,6 +81,7 @@ function loadNodes() {
 					})
 				}
 			})
+			cy.layout({ name: 'preset' })
 		})
 }
 
@@ -96,8 +101,12 @@ function createNode(x, y) {
 						id: node.ID.toString(),
 						title: node.Title,
 						content: node.Content,
+						// Сохраняем координаты в data
+						X: x,
+						Y: y,
 					},
-					position: { x: node.X, y: node.Y },
+					// Устанавливаем координаты непосредственно здесь
+					position: { x: x, y: y },
 				})
 			})
 	}

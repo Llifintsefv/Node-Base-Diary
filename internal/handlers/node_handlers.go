@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"fmt"
 	"go-node/internal/models"
 	"net/http"
 
@@ -14,6 +15,10 @@ func GetNodes(db *gorm.DB) gin.HandlerFunc {
 		if err := db.Find(&nodes).Error; err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 			return
+		}
+		db.Find(&nodes)
+		for _, node := range nodes {
+			fmt.Println(node.X,node.Y)
 		}
 		c.JSON(http.StatusOK, nodes)
 	}

@@ -15,5 +15,9 @@ html {
 #diary-canvas {
 	width: 100%;
 	height: 100%;
-	color: rgb(82, 82, 82);
+	background-color: #a7a7a7; /* Или любой другой желаемый цвет */
+	 background-image: 
+      linear-gradient(to right, #ccc 1px, transparent 1px),
+      linear-gradient(to bottom, #ccc 1px, transparent 1px);
+   	background-size: 10px 10px; /* Размер ячейки сетки */
 }

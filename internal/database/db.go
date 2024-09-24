@@ -14,6 +14,8 @@ func InitDB() (*gorm.DB, error) {
 		return nil, err
 	}
 
+	
+
 	// Миграция схемы
 	err = db.AutoMigrate(&models.Node{})
 	if err != nil {
